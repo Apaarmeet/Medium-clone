@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { jwt, sign, verify } from 'hono/jwt';
 import { PrismaClient } from "../../generated/prisma/edge";
+import { signinInput, signupInput } from "@apaarmeet/medium-common";
 
 
 
@@ -19,6 +20,13 @@ userRouter.post('/signup', async (c) => {
     }).$extends(withAccelerate())
 
     const body = await c.req.json()
+    const {success} = signupInput.safeParse(body)
+    if(!success){
+        c.status(411);
+        return c.json({
+            message:"Inputs not correct"
+        })
+    }
     try {
 
         const user = await prisma.user.create({
@@ -48,7 +56,13 @@ userRouter.post('/signin', async (c) => {
     }).$extends(withAccelerate());
 
     const body = await c.req.json()
-
+     const {success} = signinInput.safeParse(body)
+    if(!success){
+        c.status(411);
+        return c.json({
+            message:"Inputs not correct"
+        })
+    }
     try {
         const user = await prisma.user.findFirst({
             where: {
