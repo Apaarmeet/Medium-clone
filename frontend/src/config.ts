@@ -1,0 +1,1 @@
+export const BACKEND_URL = "https://backend.apaarmeet5000.workers.dev"
