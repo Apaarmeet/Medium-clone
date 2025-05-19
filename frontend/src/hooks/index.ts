@@ -11,7 +11,7 @@ export interface Blog{
     }
 }
 
-export const useblog = ({id}:{id:number})=>{
+export const useblog = ({id}:{id:string})=>{
      const [loading, setLoading] = useState(true)
     const [blog, setBlog] = useState<Blog>()
 
