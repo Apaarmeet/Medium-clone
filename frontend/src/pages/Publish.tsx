@@ -26,7 +26,7 @@ export const Publish = () => {
                     content:content,
                 },{
                     headers:{
-                        Authorization:localStorage.getItem("tokenf")
+                        Authorization:localStorage.getItem("token")
                     }
                 });
                 Navigate(`/blog/${response.data.id}`)
